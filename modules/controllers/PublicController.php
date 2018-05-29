@@ -15,6 +15,11 @@ class PublicController extends Controller {
                 $this->redirect(['default/index']);
                 Yii::$app->end();
             }
+        }else {
+            if(isset(Yii::$app->session['admin']['isLogin'])){
+                $this->redirect(['default/index']);
+                Yii::$app->end();
+            }
         }
         return $this->render('login',['model'=>$model]);
     }
@@ -28,12 +33,15 @@ class PublicController extends Controller {
         return $this->goBack();
     }
 
+
     public function actionSeekpassword() {
         $this->layout = false;
         $model = new Admin;
         if(Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
-            $model->seekPass($post);
+            if($model->seekPass($post)){
+                Yii::$app->session->setFlash("info",'电子邮件已经发送成功，请查收');
+            }
         }
             return $this->render("seekpassword",['model'=>$model]);
 

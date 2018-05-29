@@ -38,7 +38,7 @@ class admin extends ActiveRecord {
     {
         return [
             ['adminuser','required','message'=>'管理员的账号不得为空','on'=>['login','seekpass']],
-            ['adminpass','required','message'=>'管理员的密码不得为空','on'=>'login'],
+            ['adminpass','required','message'=>'管理员的密码不得为空','on'=>['login','changePass']],
             ['rememberMe','boolean','on'=>'login'],
             ['adminpass','validatePass','on'=>'login'],
             ['adminemail','required','message'=>'管理员电子邮箱不得为空','on'=>'seekpass'],
@@ -56,6 +56,7 @@ class admin extends ActiveRecord {
         }
     }
 
+
     public function validatePass() {
         if(!$this->hasErrors()) {
             $data = self::find()->where('adminuser = :user and adminpass = :pass',[':user'=>$this->adminuser,':pass'=>md5($this->adminpass)])->one();
@@ -65,11 +66,46 @@ class admin extends ActiveRecord {
         }
     }
 
+    /**
+     * @param $data
+     * @return bool
+     * 找回密码and发送邮件
+     */
     public function seekPass($data) {
         $this->scenario='seekpass';
         if($this->load($data) && $this->validate()) {
             //做点有意义的事情
+            $time = time();
+            $token = $this->createToken($data['admin']['adminuser'],$time);
+            $mailer = Yii::$app->mailer->compose('seekpass',['adminuser'=>$data['admin']['adminuser'],'time'=>time(),'token'=>$token]);
+            $mailer->setFrom("13053112897@163.com");
+            $mailer->setTo($data['admin']['adminemail']);
+            $mailer->setSubject("慕课商城-找回密码");
+            if($mailer->send()){
+                return true;
+            }
         }
         return false;
+    }
+
+    /**
+     * @param $adminuser
+     * @param $time
+     * @return string
+     * 创建token
+     */
+    protected function createToken($adminuser,$time) {
+        return md5(md5($adminuser).base64_encode(Yii::$app->request->userIP).md5($time));
+    }
+
+    /**
+     * @param $data
+     * @return bool
+     * 修改密码
+     */
+    protected function changePass($data) {
+        if($this->load($data) && $this->validate()) {
+            return (bool)$this->updateAll(['adminpass'=>md5($this->adminpass)],'adminuser = :user',[':user'=>$this->adminuser]);
+        }
     }
 }

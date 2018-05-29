@@ -101,7 +101,7 @@
                             <td>
                                 <input type="checkbox" />
                                 <div class="img">
-                                    <img src="img/table-img.png" />
+                                    <img src="assets/admin/img/table-img.png" />
                                 </div>
                                 <a href="#">There are many variations </a>
                             </td>
@@ -122,7 +122,7 @@
                             <td>
                                 <input type="checkbox" />
                                 <div class="img">
-                                    <img src="img/table-img.png" />
+                                    <img src="assets/admin/img/table-img.png" />
                                 </div>
                                 <a href="#">Internet tend</a>
                             </td>
@@ -142,7 +142,7 @@
                             <td>
                                 <input type="checkbox" />
                                 <div class="img">
-                                    <img src="img/table-img.png" />
+                                    <img src="assets/admin/img/table-img.png" />
                                 </div>
                                 <a href="#">Many desktop publishing </a>
                             </td>
@@ -162,7 +162,7 @@
                             <td>
                                 <input type="checkbox" />
                                 <div class="img">
-                                    <img src="img/table-img.png" />
+                                    <img src="assets/admin/img/table-img.png" />
                                 </div>
                                 <a href="#">Generate Lorem </a>
                             </td>
@@ -183,7 +183,7 @@
                             <td>
                                 <input type="checkbox" />
                                 <div class="img">
-                                    <img src="img/table-img.png" />
+                                    <img src="assets/admin/img/table-img.png" />
                                 </div>
                                 <a href="#">Internet tend</a>
                             </td>
