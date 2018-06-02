@@ -41,8 +41,13 @@ use yii\helpers\Html;
     <div class="span4 box">
         <div class="content-wrap">
             <h6>慕课商城 - 修改密码</h6>
+            <?php if(Yii::$app->session->hasFlash('info')){
+               echo Yii::$app->session->get('info');
+            }
+            ?>
             <?php echo $form->field($model,'adminuser')->hiddenInput() ?>
-            <?php echo $form->field($model,'adminemail')->passwordInput(["class"=>"span12","placeholder"=>"请输入新密码"]) ?>
+            <?php echo $form->field($model,'adminpass')->passwordInput(["class"=>"span12","placeholder"=>"请输入新密码"]) ?>
+            <?php echo $form->field($model,'repass')->passwordInput(["class"=>"span12","placeholder"=>"请再次新密码"]) ?>
             <a href="<?php echo yii\helpers\Url::to(['public/login'])?>" class="forgot">返回登录</a>
             <?php echo Html::submitButton('修改密码',["class"=>"btn-glow primary login"]); ?>
         </div>
